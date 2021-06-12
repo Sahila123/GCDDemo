@@ -21,6 +21,9 @@ class ViewController: UIViewController {
                 }
             }
         })
+        self.tableView.estimatedRowHeight = self.tableView.rowHeight
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.layoutIfNeeded()
     }
     
 }
@@ -33,10 +36,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as! CustomTableViewCell
-        
         let albumObj = NetworkManager.shared.albums[indexPath.row]
         NetworkManager.shared.fetchCellImage(albumObj: albumObj) { (data, title) in
             DispatchQueue.main.async {
+                cell.layoutIfNeeded()
                 cell.titleLabel.text = title
                 cell.albumImageView.image = UIImage(data: data)
             }
@@ -44,9 +47,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    //    //MARK: UITableViewDelegate Method
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        return 160
-    //    }
+    //MARK: UITableViewDelegate Method
+    private func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     
 }
