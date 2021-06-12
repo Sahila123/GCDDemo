@@ -45,6 +45,9 @@ class NetworkManager {
     }
     
     
+    
+    
+    
     func getDataFromAPI(data: Data) {
         var response : [Any]?
         
