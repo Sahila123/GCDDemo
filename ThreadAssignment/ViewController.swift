@@ -14,17 +14,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        NetworkManager.shared.photosAPICall(onCompletion: { message in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        NetworkManager.shared.photosAPICall(onCompletion: { (status, _) in
+            if status {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         })
     }
+    
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -46,9 +44,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    //MARK: UITableViewDelegate Method
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160
-    }
+    //    //MARK: UITableViewDelegate Method
+    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //        return 160
+    //    }
     
 }
