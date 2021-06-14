@@ -21,9 +21,8 @@ class ViewController: UIViewController {
                 }
             }
         })
-        self.tableView.estimatedRowHeight = self.tableView.rowHeight
         self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.layoutIfNeeded()
+        self.tableView.estimatedRowHeight = self.tableView.rowHeight
     }
     
 }
@@ -39,7 +38,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let albumObj = NetworkManager.shared.albums[indexPath.row]
         NetworkManager.shared.fetchCellImage(albumObj: albumObj) { (data, title) in
             DispatchQueue.main.async {
-                cell.layoutIfNeeded()
                 cell.titleLabel.text = title
                 cell.albumImageView.image = UIImage(data: data)
             }
